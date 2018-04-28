@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AndroidBluetoothH6</string>
+    <string name="begin">Begin</string>
+    <string name="send">Send</string>
+    <string name="stop">Stop</string>
+    <string name="clear">Clear</string>
 </resources>
