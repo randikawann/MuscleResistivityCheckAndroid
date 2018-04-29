@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.media.MediaScannerConnection;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +15,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     byte buffer[];
     int bufferPosition;
     boolean stopThread;
+    String string;
+    private static final String FILE_NAME = "example.txt";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         clearButton = (Button) findViewById(R.id.buttonClear);
         stopButton = (Button) findViewById(R.id.buttonStop);
         editText = (EditText) findViewById(R.id.editText);
-        //textView = (TextView) findViewById(R.id.textView);
+        textView = (TextView) findViewById(R.id.textView);
         setUiEnabled(false);
 
     }
@@ -155,28 +168,27 @@ public class MainActivity extends AppCompatActivity {
         {
             public void run()
             {
-                while(!Thread.currentThread().isInterrupted() && !stopThread)
-                {
-                    try
-                    {
+                while(!Thread.currentThread().isInterrupted() && !stopThread) {
+                    try {
                         int byteCount = inputStream.available();
-                        if(byteCount > 0)
-                        {
+                        if (byteCount > 0) {
                             byte[] rawBytes = new byte[byteCount];
                             inputStream.read(rawBytes);
-                            final String string=new String(rawBytes,"UTF-8");
+                            string = new String(rawBytes, "UTF-8");
                             handler.post(new Runnable() {
-                                public void run()
-                                {
+                                public void run() {
                                     textView.setText(string);
-                                    Log.i(TAG, "***************************"+string );
+                                    Log.i(TAG, "***************************" + string);
+
+                                    //store value from file
+                                    save();
                                 }
+
+
                             });
 
                         }
-                    }
-                    catch (IOException ex)
-                    {
+                    } catch (IOException ex) {
                         stopThread = true;
                     }
                 }
@@ -184,6 +196,62 @@ public class MainActivity extends AppCompatActivity {
         });
 
         thread.start();
+    }
+    //Save input value
+    public void save() {
+        String text = string;
+        FileOutputStream fos = null;
+
+        try {
+            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            fos.write(text.getBytes());
+
+            Toast.makeText(this, "Saved to " + getFilesDir() + "/" + FILE_NAME,
+                    Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    //Read saved files
+    public void load(View v) {
+        FileInputStream fis = null;
+
+        try {
+            fis = openFileInput(FILE_NAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String text;
+
+            while ((text = br.readLine()) != null) {
+                sb.append(text).append("\n");
+            }
+
+            editText.setText(sb.toString());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void onClickSend(View view) {

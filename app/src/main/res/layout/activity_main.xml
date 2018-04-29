@@ -17,13 +17,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="70dp"
         android:inputType=""
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,12 +31,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
         android:onClick="onClickStart"
         android:text="@string/begin"
-        app:layout_constraintStart_toEndOf="@+id/buttonClear"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         tools:ignore="OnClick" />
 
@@ -48,20 +45,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText"
+        android:layout_marginEnd="196dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginRight="196dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="50dp"
         android:layout_toEndOf="@+id/buttonStart"
         android:layout_toRightOf="@+id/buttonStart"
         android:onClick="onClickSend"
         android:text="@string/send"
-        app:layout_constraintStart_toEndOf="@+id/buttonStop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonStart"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        tools:ignore="OnClick" />
+        tools:ignore="OnClick,UnknownId" />
 
 
     <Button
-        android:id="@+id/buttonStop"
+        android:id="@+id/button0Stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText"
@@ -72,7 +72,7 @@
         android:layout_toRightOf="@+id/buttonSend"
         android:onClick="onClickStop"
         android:text="@string/stop"
-        app:layout_constraintStart_toEndOf="@+id/buttonStart"
+        app:layout_constraintStart_toEndOf="@+id/buttonSend"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         tools:ignore="OnClick" />
 
@@ -81,15 +81,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="50dp"
-        android:layout_toEndOf="@+id/buttonStop"
-        android:layout_toRightOf="@+id/buttonStop"
         android:onClick="onClickClear"
         android:text="@string/clear"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button0Stop"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         tools:ignore="OnClick" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="183dp"
+        android:layout_height="111dp"
+        android:layout_marginEnd="157dp"
+        android:layout_marginRight="157dp"
+        android:layout_marginTop="92dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
 
 </android.support.constraint.ConstraintLayout>
