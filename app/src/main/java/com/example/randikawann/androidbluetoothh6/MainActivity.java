@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     boolean stopThread;
     String string;
     private static final String FILE_NAME = "example.txt";
+    String name1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean BTinit()
     {
+
         boolean found=false;
         BluetoothAdapter bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
@@ -99,18 +101,28 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),"find bounded device",Toast.LENGTH_SHORT).show();
         if(bondedDevices.isEmpty())
         {
+            Log.i(TAG, "bound is empty");
             Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
         }
         else
         {
+
+            Log.i(TAG, "bound device have");
             for (BluetoothDevice iterator : bondedDevices)
             {
-                if(iterator.getAddress().equals(DEVICE_ADDRESS))
-                {
+                Log.i(TAG, "bounded devices for");
+                //if(iterator.getAddress().equals(DEVICE_ADDRESS))
+                //{
+                    Log.i(TAG, "found device");
                     device=iterator;
                     found=true;
                     break;
-                }
+                //}
+
+
+                //Log.i(TAG, "get Address "+iterator.getAddress().toString());
+                //Log.i(TAG, DEVICE_ADDRESS.toString());
+
             }
         }
         return found;
@@ -118,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean BTconnect()
     {
+        Log.i(TAG, "BTconnect begining");
+
         boolean connected=true;
         try {
             socket = device.createRfcommSocketToServiceRecord(PORT_UUID);
@@ -150,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         {
             if(BTconnect())
             {
+                Log.i(TAG, "If BTconnect");
                 setUiEnabled(true);
                 deviceConnected=true;
                 beginListenForData();
@@ -161,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
     void beginListenForData()
     {
+        Log.i(TAG, "Begining listner data");
         final Handler handler = new Handler();
         stopThread = false;
         buffer = new byte[1024];

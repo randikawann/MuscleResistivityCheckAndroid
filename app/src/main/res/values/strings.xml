@@ -4,4 +4,6 @@
     <string name="send">Send</string>
     <string name="stop">Stop</string>
     <string name="clear">Clear</string>
+    <string name="view">View</string>
+    <string name="textview">TextView</string>
 </resources>
