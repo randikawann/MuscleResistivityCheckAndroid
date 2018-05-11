@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     String string;
     private static final String FILE_NAME = "example.txt";
     String name1;
+    GraphView graph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         stopButton = (Button) findViewById(R.id.buttonStop);
         editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.textView);
+        graph = (GraphView) findViewById(R.id.graph);
         setUiEnabled(false);
 
     }
@@ -107,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
         else
         {
 
-            Log.i(TAG, "bound device have");
+            //Log.i(TAG, "bound device have");
             for (BluetoothDevice iterator : bondedDevices)
             {
-                Log.i(TAG, "bounded devices for");
+                //Log.i(TAG, "bounded devices for");
                 //if(iterator.getAddress().equals(DEVICE_ADDRESS))
                 //{
                     Log.i(TAG, "found device");
@@ -130,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean BTconnect()
     {
-        Log.i(TAG, "BTconnect begining");
+        //Log.i(TAG, "BTconnect begining");
 
         boolean connected=true;
         try {
@@ -176,10 +182,12 @@ public class MainActivity extends AppCompatActivity {
 
     void beginListenForData()
     {
+
         Log.i(TAG, "Begining listner data");
         final Handler handler = new Handler();
         stopThread = false;
         buffer = new byte[1024];
+
         Thread thread  = new Thread(new Runnable()
         {
             public void run()
@@ -188,16 +196,21 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         int byteCount = inputStream.available();
                         if (byteCount > 0) {
-                            byte[] rawBytes = new byte[byteCount];
+                            final byte[] rawBytes = new byte[byteCount];
                             inputStream.read(rawBytes);
                             string = new String(rawBytes, "UTF-8");
+
                             handler.post(new Runnable() {
                                 public void run() {
                                     textView.setText(string);
-                                    Log.i(TAG, "***************************" + string);
+                                    //Log.i(TAG, "***************************" + string);
+                                    Log.i(TAG, "***************************" + rawBytes);
+                                //add line graph
+                                    makeGraph(string);
 
                                     //store value from file
                                     save();
+
                                 }
 
 
@@ -213,6 +226,15 @@ public class MainActivity extends AppCompatActivity {
 
         thread.start();
     }
+    // make graph
+    public void makeGraph(String string){
+        int x=0;
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(x++, Integer.parseInt(this.string))
+
+        });
+        graph.addSeries(series);
+    }
     //Save input value
     public void save() {
         String text = string;
@@ -222,8 +244,8 @@ public class MainActivity extends AppCompatActivity {
             fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
             fos.write(text.getBytes());
 
-            Toast.makeText(this, "Saved to " + getFilesDir() + "/" + FILE_NAME,
-                    Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Saved to " + getFilesDir() + "/" + FILE_NAME,
+              //      Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -239,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     //Read saved files
-    public void load(View v) {
+    public void load() {
         FileInputStream fis = null;
 
         try {
@@ -283,6 +305,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickStop(View view) throws IOException {
+        Log.i(TAG, "File stop");
+        //load();
         stopThread = true;
         outputStream.close();
         inputStream.close();
@@ -293,6 +317,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickClear(View view) {
-        textView.setText("");
+        Log.i(TAG, "File view");
+        load();
     }
-}
+
+    }
+
+
