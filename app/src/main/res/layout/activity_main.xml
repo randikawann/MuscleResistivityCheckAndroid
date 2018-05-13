@@ -8,22 +8,6 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="364dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="70dp"
-        android:inputType=""
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/buttonStart"
         android:layout_width="160dp"
@@ -31,14 +15,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
         android:onClick="onClickStart"
         android:text="@string/begin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        tools:ignore="MissingConstraints,OnClick" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,OnClick,UnknownId" />
 
     <Button
         android:id="@+id/buttonSend"
@@ -47,20 +31,20 @@
         android:layout_below="@+id/editText"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/buttonStart"
         android:layout_toRightOf="@+id/buttonStart"
         android:onClick="onClickSend"
         android:text="@string/send"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="OnClick,UnknownId" />
 
     <com.jjoe64.graphview.GraphView
 
         android:id="@+id/graph"
         android:layout_width="match_parent"
-        android:layout_height="152dp"
+        android:layout_height="198dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -82,34 +66,33 @@
         android:text="@string/stop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonStart"
-        tools:ignore="OnClick" />
+        tools:ignore="OnClick,UnknownId" />
 
     <Button
         android:id="@+id/buttonClear"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:layout_marginTop="30dp"
         android:onClick="onClickClear"
         android:text="@string/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSend"
-        tools:ignore="OnClick" />
+        tools:ignore="OnClick,UnknownId" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="200dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="60dp"
+        android:layout_height="110dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="80dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="20dp"
-        android:text="@string/textview"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/graph"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonStop"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonStop" />
 
 </android.support.constraint.ConstraintLayout>

@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.util.Set;
 import java.util.UUID;
 import java.io.FileOutputStream;
@@ -56,9 +57,12 @@ public class MainActivity extends AppCompatActivity {
     int bufferPosition;
     boolean stopThread;
     String string;
+    int valueAll;
+    int x=0;
     private static final String FILE_NAME = "example.txt";
     String name1;
     GraphView graph;
+    int arr[] ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
         sendButton = (Button) findViewById(R.id.buttonSend);
         clearButton = (Button) findViewById(R.id.buttonClear);
         stopButton = (Button) findViewById(R.id.buttonStop);
-        editText = (EditText) findViewById(R.id.editText);
+        //editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.textView);
         graph = (GraphView) findViewById(R.id.graph);
         setUiEnabled(false);
-
+        arr=new int[100];
     }
 
     public void setUiEnabled(boolean bool)
@@ -199,41 +203,194 @@ public class MainActivity extends AppCompatActivity {
                             final byte[] rawBytes = new byte[byteCount];
                             inputStream.read(rawBytes);
                             string = new String(rawBytes, "UTF-8");
+//                            valueAll = new Integer(rawBytes,);
+                            try{
+                                valueAll=Integer.valueOf(string);
+                            }catch (Exception e){}
 
+                            Log.i(TAG, "***************************" + valueAll);
                             handler.post(new Runnable() {
                                 public void run() {
                                     textView.setText(string);
-                                    //Log.i(TAG, "***************************" + string);
-                                    Log.i(TAG, "***************************" + rawBytes);
+
+
+                                   // Log.i(TAG, "***************************" + rawBytes);
+
                                 //add line graph
-                                    makeGraph(string);
 
-                                    //store value from file
-                                    save();
-
+                                    //int x=0;
+                                    try{
+                                    arr[x]=valueAll;
+                                    x++;
+                                    }catch(Exception e){}
                                 }
 
 
                             });
+//                            Toast.makeText(getApplicationContext(),"go to make graph",Toast.LENGTH_SHORT).show();
+//                            makeGraph(arr);
+                            //store value from file
+                            //save();
+
 
                         }
                     } catch (IOException ex) {
                         stopThread = true;
                     }
                 }
+
             }
         });
+
 
         thread.start();
     }
     // make graph
-    public void makeGraph(String string){
-        int x=0;
+    public void makeGraph(int[] arr){
+        try{
+            graph.getViewport().setScrollable(true); // enables horizontal scrolling
+            graph.getViewport().setScrollableY(true); // enables vertical scrolling
+            graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
+            graph.getViewport().setScalableY(true); //
+
+        }catch (Exception e){}
+        for (int i=0;i<arr.length;i++){
+            new DataPoint(i,arr[i]);
+        }
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(x++, Integer.parseInt(this.string))
+                new DataPoint(1, arr[1]),
+                new DataPoint(2, arr[2]),
+                new DataPoint(3, arr[3]),
+                new DataPoint(4, arr[4]),
+                new DataPoint(5, arr[5]),
+
+                new DataPoint(6, arr[6]),
+                new DataPoint(7, arr[7]),
+                new DataPoint(8, arr[8]),
+                new DataPoint(9, arr[9]),
+                new DataPoint(10, arr[10]),
+
+                new DataPoint(11, arr[11]),
+                new DataPoint(12, arr[12]),
+                new DataPoint(13, arr[13]),
+                new DataPoint(14, arr[14]),
+                new DataPoint(15, arr[15]),
+
+                new DataPoint(16, arr[16]),
+                new DataPoint(17, arr[17]),
+                new DataPoint(18, arr[18]),
+                new DataPoint(19, arr[19]),
+                new DataPoint(20, arr[20]),
+
+                new DataPoint(21, arr[21]),
+                new DataPoint(22, arr[22]),
+                new DataPoint(23, arr[23]),
+                new DataPoint(24, arr[24]),
+                new DataPoint(25, arr[25]),
+
+                new DataPoint(26, arr[26]),
+                new DataPoint(27, arr[27]),
+                new DataPoint(28, arr[28]),
+                new DataPoint(29, arr[29]),
+                new DataPoint(30, arr[30]),
+
+                new DataPoint(31, arr[31]),
+                new DataPoint(32, arr[32]),
+                new DataPoint(33, arr[33]),
+                new DataPoint(34, arr[34]),
+                new DataPoint(35, arr[35]),
+
+                new DataPoint(36, arr[36]),
+                new DataPoint(37, arr[37]),
+                new DataPoint(38, arr[38]),
+                new DataPoint(39, arr[39]),
+                new DataPoint(40, arr[40]),
+
+                new DataPoint(41, arr[41]),
+                new DataPoint(42, arr[42]),
+                new DataPoint(43, arr[43]),
+                new DataPoint(44, arr[44]),
+                new DataPoint(45, arr[45]),
+
+                new DataPoint(46, arr[46]),
+                new DataPoint(47, arr[47]),
+                new DataPoint(48, arr[48]),
+                new DataPoint(49, arr[49]),
+                new DataPoint(50, arr[50]),
+
+                new DataPoint(51, arr[51]),
+                new DataPoint(52, arr[52]),
+                new DataPoint(53, arr[53]),
+                new DataPoint(54, arr[54]),
+                new DataPoint(55, arr[55]),
+
+                new DataPoint(56, arr[56]),
+                new DataPoint(57, arr[57]),
+                new DataPoint(58, arr[58]),
+                new DataPoint(59, arr[59]),
+                new DataPoint(60, arr[60]),
+
+                new DataPoint(61, arr[61]),
+                new DataPoint(62, arr[62]),
+                new DataPoint(63, arr[63]),
+                new DataPoint(64, arr[64]),
+                new DataPoint(65, arr[65]),
+
+                new DataPoint(66, arr[66]),
+                new DataPoint(67, arr[67]),
+                new DataPoint(68, arr[68]),
+                new DataPoint(69, arr[69]),
+                new DataPoint(70, arr[70]),
+
+                new DataPoint(71, arr[71]),
+                new DataPoint(72, arr[72]),
+                new DataPoint(73, arr[73]),
+                new DataPoint(74, arr[74]),
+                new DataPoint(75, arr[75]),
+
+                new DataPoint(76, arr[76]),
+                new DataPoint(77, arr[77]),
+                new DataPoint(78, arr[78]),
+                new DataPoint(79, arr[79]),
+                new DataPoint(80, arr[80]),
+
+                new DataPoint(81, arr[81]),
+                new DataPoint(82, arr[82]),
+                new DataPoint(83, arr[83]),
+                new DataPoint(84, arr[84]),
+                new DataPoint(85, arr[85]),
+
+                new DataPoint(86, arr[86]),
+                new DataPoint(87, arr[87]),
+                new DataPoint(88, arr[88]),
+                new DataPoint(89, arr[89]),
+                new DataPoint(90, arr[90]),
+
+                new DataPoint(91, arr[91]),
+                new DataPoint(92, arr[92]),
+                new DataPoint(93, arr[93]),
+                new DataPoint(94, arr[94]),
+                new DataPoint(95, arr[95]),
+
+                new DataPoint(96, arr[96]),
+                new DataPoint(97, arr[97]),
+                new DataPoint(98, arr[98]),
+                new DataPoint(99, arr[99]),
+//                new DataPoint(100, arr[100])
 
         });
+
         graph.addSeries(series);
+        textView.setText(arr[1]+" , "+arr[2]+" , "+arr[3]+" , "+arr[4]+" , "+arr[5]+" , "+arr[6]+" , "+arr[7]+" , "+arr[8]+" , "+arr[9]+" , "+arr[10]+" , "+
+                arr[11]+" , "+arr[12]+" , "+arr[13]+" , "+arr[14]+" , "+arr[15]+" , "+arr[16]+" , "+arr[17]+" , "+arr[18]+" , "+arr[19]+" , "+arr[20]+" , "+
+                arr[21]+" , "+arr[22]+" , "+arr[23]+" , "+arr[24]+" , "+arr[25]+" , "+arr[26]+" , "+arr[27]+" , "+arr[28]+" , "+arr[29]+" , "+arr[30]+" , "+
+                arr[31]+" , "+arr[32]+" , "+arr[33]+" , "+arr[34]+" , "+arr[35]+" , "+arr[36]+" , "+arr[37]+" , "+arr[38]+" , "+arr[39]+" , "+arr[40]+" , "+
+                arr[41]+" , "+arr[42]+" , "+arr[43]+" , "+arr[44]+" , "+arr[45]+" , "+arr[46]+" , "+arr[47]+" , "+arr[48]+" , "+arr[49]+" , "+arr[50]+" , "+
+                arr[51]+" , "+arr[52]+" , "+arr[53]+" , "+arr[54]+" , "+arr[55]+" , "+arr[56]+" , "+arr[57]+" , "+arr[58]+" , "+arr[59]+" , "+arr[60]+" , "+
+                arr[61]+" , "+arr[62]+" , "+arr[63]+" , "+arr[64]+" , "+arr[65]+" , "+arr[66]+" , "+arr[67]+" , "+arr[68]+" , "+arr[69]+" , "+arr[70]+" , "+
+                arr[71]+" , "+arr[72]+" , "+arr[73]+" , "+arr[74]+" , "+arr[75]+" , "+arr[76]+" , "+arr[77]+" , "+arr[78]+" , "+arr[79]+" , "+arr[80]+" , "+
+                arr[81]+" , "+arr[82]+" , "+arr[83]+" , "+arr[84]+" , "+arr[85]+" , "+arr[86]+" , "+arr[87]+" , "+arr[88]+" , "+arr[89]+" , "+arr[90]
+        );
     }
     //Save input value
     public void save() {
@@ -293,18 +450,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickSend(View view) {
-        String string = editText.getText().toString();
-        string.concat("\n");
-        try {
-            outputStream.write(string.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        textView.append("\nSent Data:"+string+"\n");
+//        String string = editText.getText().toString();
+//        string.concat("\n");
+//        try {
+//            outputStream.write(string.getBytes());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        textView.append("\nSent Data:"+string+"\n");
 
     }
 
     public void onClickStop(View view) throws IOException {
+        textView.setText(" ");
+        Toast.makeText(getApplicationContext(),"go to make graph",Toast.LENGTH_SHORT).show();
+        makeGraph(arr);
+        //displayValue(arr);
         Log.i(TAG, "File stop");
         //load();
         stopThread = true;
@@ -313,12 +474,20 @@ public class MainActivity extends AppCompatActivity {
         socket.close();
         setUiEnabled(false);
         deviceConnected=false;
-        textView.append("\nConnection Closed!\n");
+        //textView.append("\nConnection Closed!\n");
     }
 
     public void onClickClear(View view) {
         Log.i(TAG, "File view");
         load();
+    }
+
+    public void displayValue(int[] arr){
+
+        textView.setText(arr.toString());
+//        for(int i=0; i<arr.length;i++){
+//            textView.setText(arr[i]);
+//        }
     }
 
     }
