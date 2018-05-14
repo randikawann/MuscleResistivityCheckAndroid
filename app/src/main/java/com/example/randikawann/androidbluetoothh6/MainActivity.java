@@ -207,6 +207,9 @@ public class MainActivity extends AppCompatActivity {
                             try{
                                 valueAll=Integer.valueOf(string);
                             }catch (Exception e){}
+                            if(valueAll<150){
+                                valueAll=0;
+                            }
 
                             Log.i(TAG, "***************************" + valueAll);
                             handler.post(new Runnable() {
@@ -482,13 +485,6 @@ public class MainActivity extends AppCompatActivity {
         load();
     }
 
-    public void displayValue(int[] arr){
-
-        textView.setText(arr.toString());
-//        for(int i=0; i<arr.length;i++){
-//            textView.setText(arr[i]);
-//        }
-    }
 
     }
 
