@@ -209,6 +209,11 @@ public class MainActivity extends AppCompatActivity {
                             }catch (Exception e){}
                             if(valueAll<150){
                                 valueAll=0;
+                            }else{
+                                valueAll=valueAll-50;
+                                if(valueAll<150){
+                                    valueAll=0;
+                                }
                             }
 
                             Log.i(TAG, "***************************" + valueAll);
